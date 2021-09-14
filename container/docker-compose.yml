@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  notification-service:
+    build:
+      context: ../
+      dockerfile: ./container/node.Dockerfile
+    image: notification-service
+    container_name: notification-service
+    environment:
+      NODE_ENV: development
+      PORT: 8000
+      DB_HOST: 172.10.0.2
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: xendit
+    volumes:
+      - ../:/app:delegated
+    ports:
+      - '8000:8000'
+    networks:
+      notification-network:
+        ipv4_address: 172.10.0.3
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-notification
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: xendit
+    ports:
+      - 3306:3306
+    volumes:
+      - xendit-data:/var/lib/mysql
+    networks:
+      notification-network:
+        ipv4_address: 172.10.0.2
+volumes:
+  xendit-data:
+    external: true
+networks:
+  notification-network:
+    name: notification-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.10.0.0/16
