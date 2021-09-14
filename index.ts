@@ -18,4 +18,4 @@ if (!module.parent){
     })
 }
 
-export default app
+module.exports = app

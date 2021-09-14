@@ -10,3 +10,6 @@ build:
 
 init:
 	docker exec -ti notification-service npm install
+
+test:
+	docker exec -ti notification-service npm test

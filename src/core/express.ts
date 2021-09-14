@@ -1,6 +1,6 @@
-import {createExpressServer, useExpressServer} from "routing-controllers";
+import {useExpressServer} from "routing-controllers";
 import morgan from "morgan"
-import express, {NextFunction, Request, Response} from "express";
+import express from "express";
 import VirtualAccountController from "../controllers/VirtualAccountController";
 import MerchantController from "../controllers/MerchantController";
 import bodyParser from "body-parser";
